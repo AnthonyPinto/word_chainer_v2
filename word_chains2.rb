@@ -1,7 +1,9 @@
+require 'set'
+
 class WordChainer
   
   def initialize dictionary_file_name = 'dictionary.txt'
-    @dictionary = File.readlines(dictionary_file_name).map(&:chomp)
+    @dictionary = Set.new(File.readlines(dictionary_file_name).map(&:chomp))
     @all_seen_words = {}
   end
   
@@ -53,5 +55,12 @@ class WordChainer
 end
 
 if __FILE__ == $PROGRAM_NAME
-  p WordChainer.new.build_path('bear', 'wolf')
+  if ARGV
+    word1 = ARGV[0]
+    word2 = ARGV[1]
+  else
+    word1 = 'bear'
+    word2 = 'wolf'
+  end
+  p WordChainer.new.build_path(word1, word2)
 end
