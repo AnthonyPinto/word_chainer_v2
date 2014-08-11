@@ -11,11 +11,12 @@ class WordChainer
     explore start, target
     word = target
     [].tap do |path|
-      until path[0] == start
+      until word == nil
         path.unshift(word)
         #works backward from targer using each word's 'parent' 
         word = @all_seen_words[word]
       end
+      return "sorry, no word chain possible." unless path.include?(start)
     end
   end
   
